@@ -12,12 +12,27 @@
       background: #f4f6f8;
     }
 
-    header {
-      background: #1e88e5;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
+header {
+  background: url("vallether_banner1.png") center center / cover no-repeat;
+  color: white;
+  padding: 120px 20px;
+  text-align: center;
+  position: relative;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* dark overlay for readability */
+}
+
+header h1,
+header p {
+  position: relative;
+  z-index: 1;
+}
+
 
     section {
       padding: 40px 20px;
