@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vallet Her - Trash Pickup Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+    }
+
+    header {
+      background: #1e88e5;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #1e88e5;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1565c0;
+    }
+
+    #status {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Vallet Her</h1>
+  <p>Clean trash, happy planet</p>
+</header>
+
+<section>
+  <h2>Request Service</h2>
+
+  <form id="contactForm">
+    <input name="full_name" placeholder="Full Name" required />
+    <input name="email" placeholder="Email (optional)" />
+    <input name="phone" placeholder="Phone (optional)" />
+    <input name="address" placeholder="Service Address" />
+    <textarea name="message" placeholder="How can we help?" required></textarea>
+
+    <!-- Honeypot -->
+    <div style="position:absolute; left:-9999px;">
+      <input name="website" />
+    </div>
+
+    <button type="submit">Submit Request</button>
+    <p id="status"></p>
+  </form>
+</section>
+
+<script>
+  const ENDPOINT = "https://dumvqkxewqgckboohtft.supabase.co/functions/v1/super-function";
+
+ document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const status = document.getElementById("status");
+    status.textContent = "Sending...";
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.source = "website";
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const text = await res.text();              // read raw
+      let json;
+      try { json = JSON.parse(text); } catch { json = { raw: text }; }
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${json.error || json.details || json.raw || "Unknown error"}`);
+      }
+
+      form.reset();
+      status.textContent = "Thank you! We will contact you soon.";
+      console.log("Success:", json);
+    } catch (err) {
+      status.textContent = "Error: " + (err?.message || err);
+      console.error("Form submit error:", err);
+    }
+  });
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
