@@ -132,15 +132,43 @@
 
   #status { font-weight: bold; }
 
-  .hero-actions {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    z-index: 3;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+ /* ===== Centered Tab Navigation ===== */
+.hero-tabs {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+
+  display: flex;
+  gap: 0;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.35);
+}
+
+/* Tab buttons */
+.hero-tabs a {
+  padding: 10px 22px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  transition: all 0.25s ease;
+}
+
+/* Divider effect */
+.hero-tabs a + a {
+  border-left: 1px solid rgba(255,255,255,0.25);
+}
+
+/* Hover effect */
+.hero-tabs a:hover {
+  background: rgba(255,255,255,0.25);
+}
+
 
   .hero-actions .cta-btn {
     padding: 10px 14px;
@@ -173,11 +201,11 @@
 <header class="hero" id="top">
   <img src="ValletHer_Logo2.png" alt="Vallet Her Logo" class="hero-logo">
 
-  <div class="hero-actions">
-    <a class="cta-btn cta-primary" href="#request">Request Service</a>
-    <!-- CHANGED: navigate to new page -->
-    <a class="cta-btn cta-secondary" href="contact.html">Contact Us</a>
-  </div>
+<div class="hero-tabs">
+  <a href="#request">Request Service</a>
+  <a href="contact.html">Contact Us</a>
+</div>
+
 
   <div class="hero-content">
     <h1>Vallet Her</h1>
@@ -265,6 +293,17 @@
     onScroll();
   })();
 </script>
+<footer style="
+  background:#5A2A5D;
+  color:white;
+  text-align:center;
+  padding:20px 10px;
+  margin-top:60px;
+  font-size:14px;
+  letter-spacing:0.5px;
+">
+  © 2025 Vallet Her. All rights reserved.
+</footer>
 
 </body>
 </html>
