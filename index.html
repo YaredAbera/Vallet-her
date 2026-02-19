@@ -170,14 +170,16 @@
       font-weight: 950;
     }
 
-    .hero h3{
-      margin: 0 auto 14px;
-      font-size: clamp(14px, 2vw, 20px);
-      opacity: 0.98;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-      font-weight: 650;
-      max-width: 760px;
-    }
+.hero h3 {
+  margin: 0;
+  font-size: clamp(15px, 2.2vw, 22px);
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow:
+    0 2px 6px rgba(0,0,0,0.6),
+    0 0 18px rgba(0,0,0,0.35);
+}
+
 
     .hero-cta{ display:none; }
 
@@ -217,14 +219,17 @@
       flex: 0 0 8px;
     }
 
-    .hero-wave{
-      position: absolute;
-      left: 0; right: 0; bottom: -1px;
-      width: 100%;
-      height: 92px;
-      z-index: 2;
-      pointer-events: none;
-    }
+.hero-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 80px;
+  z-index: 0; /* lower than hero content */
+  pointer-events: none;
+}
+
 
     .hero-logo{
       position: absolute;
@@ -537,21 +542,6 @@
 #backToTop.show{
   opacity: 1;
   visibility: visible;
-}
-/* ===== Mobile Fix for Hero Text ===== */
-@media (max-width: 768px) {
-
-  /* Make h3 black on mobile */
-  .hero h3 {
-    color: #000000 !important;
-    text-shadow: none;
-  }
-
-  /* Give extra bottom spacing so wave doesn't overlap text */
-  .hero-content {
-    padding-bottom: 80px;
-  }
-
 }
 
   </style>
