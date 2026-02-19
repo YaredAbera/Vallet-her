@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vallet Her - Trash Pickup Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+  color: #1e1e1e;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Soft clean-environment background image + light green wash */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(rgba(210, 244, 226, 0.72), rgba(244, 251, 246, 0.72)),
+    url("bg-clean.png") center / cover no-repeat;
+  filter: saturate(1.05) brightness(1.02);
+}
+
+/* Optional: add a tiny texture/blur to keep it classy */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+}
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      color: #1e1e1e;
+    }
+
+    /* ===== TOP GREEN SECTION (FULL WIDTH) ===== */
+    .topbar {
+      background: #024731;
+      padding: 14px 0 18px;
+    }
+
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Tabs sitting on the green background */
+    .tabbar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tabbar a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(6px);
+
+      transition: transform 150ms ease, background 150ms ease;
+    }
+
+    .tabbar a:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.18);
+    }
+
+    .tabbar a.active {
+      background: #ffffff;
+      color: #024731;
+      border-color: #ffffff;
+    }
+
+    /* ===== HERO ===== */
+    header.hero {
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(260px, 42vh, 560px);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      background: url("vallether_banner1.png") center top / contain no-repeat;
+      background-color: #024731;
+
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    header.hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.20);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 34px 18px;
+      max-width: 900px;
+
+      opacity: 0;
+      transform: translateY(14px);
+      animation: fadeInUp 900ms ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4.2vw, 52px);
+      line-height: 1.1;
+      letter-spacing: 0.3px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    .hero h3 {
+      margin: 0;
+      font-size: clamp(14px, 2vw, 20px);
+      opacity: 0.95;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      font-weight: 600;
+    }
+
+    /* Wave */
+    .hero-wave {
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      width: 100%;
+      height: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Logo */
+    .hero-logo {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      height: 58px;
+      width: auto;
+      z-index: 4;
+    }
+
+    @media (max-width: 600px) {
+      .hero-logo { height: 44px; top: 12px; left: 12px; }
+    }
+
+    /* ===== PAGE CONTENT ===== */
+    section {
+      padding: 40px 20px;
+      max-width: 980px;
+      margin: auto;
+    }
+
+    .section-narrow {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    /* ===== SLOGANS / VALUE PROPS ===== */
+    .value-props {
+      margin-top: 26px;
+    }
+
+    .value-props h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      color: #1f2a24;
+      letter-spacing: 0.2px;
+    }
+
+    .vp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .vp-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+      padding: 16px 16px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .vp-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(2,71,49,0.08);
+      display: grid;
+      place-items: center;
+      flex: 0 0 42px;
+    }
+
+    .vp-icon svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: none;
+      stroke: #024731;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .vp-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      color: #024731;
+      text-transform: uppercase;
+    }
+
+    .vp-quote {
+      margin: 6px 0 6px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #1d1d1d;
+    }
+
+    .vp-desc {
+      margin: 0;
+      font-size: 13px;
+      color: #4b4b4b;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 980px) {
+      .vp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 620px) {
+      .vp-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== FORM ===== */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #5A2A5D;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #4a214b; }
+
+    #status { font-weight: bold; }
+
+    footer {
+      background:#5A2A5D;
+      color:white;
+      text-align:center;
+      padding:20px 10px;
+      margin-top:60px;
+      font-size:14px;
+      letter-spacing:0.5px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+
+    <nav class="tabbar" aria-label="Primary">
+      <a class="active" href="#request">Request Service</a>
+      <a href="contact.html#contactForm">Contact Us</a>
+    </nav>
+
+    <header class="hero" id="top">
+      <img src="ValletHer_Logo2.png" alt="Vallet Her Logo" class="hero-logo">
+
+      <div class="hero-content">
+        <h1>Vallet Her</h1>
+        <h3>Committed to Clean Communities and Environmental Stewardship</h3>
+      </div>
+
+      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="#f4f6f8"
+          d="M0,64 C240,110 480,110 720,64 C960,18 1200,18 1440,64 L1440,120 L0,120 Z"></path>
+      </svg>
+    </header>
+
+  </div>
+</div>
+
+<section class="value-props" aria-label="Vallet Her value propositions">
+
+  <div class="vp-grid">
+
+    <!-- Clean & Corporate -->
+    <div class="vp-card">
+      <div class="vp-icon" aria-hidden="true">
+        <!-- Building icon -->
+        <svg viewBox="0 0 24 24">
+          <path d="M3 21h18"></path>
+          <path d="M6 21V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v14"></path>
+          <path d="M9 9h1"></path><path d="M9 12h1"></path><path d="M9 15h1"></path>
+          <path d="M14 9h1"></path><path d="M14 12h1"></path><path d="M14 15h1"></path>
+        </svg>
+      </div>
+      <div>
+        <p class="vp-title">Clean & Corporate</p>
+        <p class="vp-quote">“ValletHer: Elevating Clean Communities.”</p>
+        <p class="vp-desc">A women-led curbside service committed to reliability, sustainability, and care.</p>
+      </div>
+    </div>
+
+    <!-- Eco-Focused -->
+    <div class="vp-card">
+      <div class="vp-icon" aria-hidden="true">
+        <!-- Leaf icon -->
+        <svg viewBox="0 0 24 24">
+          <path d="M21 3s-6 0-10 4-4 10-4 10 6 0 10-4 4-10 4-10Z"></path>
+          <path d="M7 17c2-4 6-8 10-10"></path>
+        </svg>
+      </div>
+      <div>
+        <p class="vp-title">Eco-Focused</p>
+        <p class="vp-quote">“Sustainability Starts at Your Curb.”</p>
+        <p class="vp-desc">Professional doorstep waste collection with an eco-conscious approach.</p>
+      </div>
+    </div>
+
+    <!-- Service Excellence -->
+    <div class="vp-card">
+      <div class="vp-icon" aria-hidden="true">
+        <!-- Shield/check icon -->
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2 20 6v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z"></path>
+          <path d="m9 12 2 2 4-5"></path>
+        </svg>
+      </div>
+      <div>
+        <p class="vp-title">Service Excellence</p>
+        <p class="vp-quote">“Where Service Meets Stewardship.”</p>
+        <p class="vp-desc">Dependable, responsible, and designed to keep your community clean.</p>
+      </div>
+    </div>
+
+    <!-- Women-Led Strength -->
+    <div class="vp-card">
+      <div class="vp-icon" aria-hidden="true">
+        <!-- Spark / leadership icon -->
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2l1.5 5L18 9l-4.5 2L12 16l-1.5-5L6 9l4.5-2L12 2Z"></path>
+          <path d="M5 22c3-3 11-3 14 0"></path>
+        </svg>
+      </div>
+      <div>
+        <p class="vp-title">Women-Led Strength</p>
+        <p class="vp-quote">“Led by Her. Powered by Purpose.”</p>
+        <p class="vp-desc">A modern approach to curbside waste care—professional, efficient, and community-driven.</p>
+      </div>
+    </div>
+
+    <!-- Premium & Minimal -->
+    <div class="vp-card">
+      <div class="vp-icon" aria-hidden="true">
+        <!-- Crown icon -->
+        <svg viewBox="0 0 24 24">
+          <path d="M3 8l4 4 5-6 5 6 4-4v10H3V8Z"></path>
+          <path d="M3 18h18"></path>
+        </svg>
+      </div>
+      <div>
+        <p class="vp-title">Premium & Minimal</p>
+        <p class="vp-quote">“Reliable. Responsible. Remarkably Her.”</p>
+        <p class="vp-desc">A higher standard of residential waste service.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="request">
+  <div class="section-narrow">
+    <h2>Request Service</h2>
+
+    <form id="contactForm">
+      <input name="full_name" placeholder="Full Name" required />
+      <input name="email" placeholder="Email" required />
+      <input name="phone" placeholder="Phone (optional)" />
+      <input name="address" placeholder="Service Address" />
+      <textarea name="message" placeholder="How can we help?" required></textarea>
+
+      <div style="position:absolute; left:-9999px;">
+        <input name="website" />
+      </div>
+
+      <button type="submit">Submit Request</button>
+      <p id="status"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const ENDPOINT = "https://dumvqkxewqgckboohtft.supabase.co/functions/v1/super-function";
+
+  document.getElementById("contactForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const status = document.getElementById("status");
+    status.textContent = "Sending...";
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.source = "website";
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const text = await res.text();
+      let json;
+      try { json = JSON.parse(text); } catch { json = { raw: text }; }
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${json.error || json.details || json.raw || "Unknown error"}`);
+
+      form.reset();
+      status.textContent = "Thank you! We will contact you soon.";
+    } catch (err) {
+      status.textContent = "Error: " + (err?.message || err);
+      console.error("Form submit error:", err);
+    }
+  });
+</script>
+
+<script>
+  // Parallax on the hero image
+  (function () {
+    const hero = document.querySelector("header.hero");
+    if (!hero) return;
+
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY || 0;
+        hero.style.backgroundPosition = `center ${Math.round(y * 0.10)}px`;
+        ticking = false;
+      });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+<footer>
+  © 2025 Vallet Her. All rights reserved.
+</footer>
+
+</body>
+</html>

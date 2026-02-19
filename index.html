@@ -1,55 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Vallet Her - Trash Pickup Services</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Vallet Her - Valet Trash Pickup Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+    :root{
+      --brand:#024731;
+      --brand2:#115e59;
+      --accent:#5A2A5D;
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --text:#1e1e1e;
+      --muted:#5b6672;
+      --border:rgba(0,0,0,.08);
+      --shadow:0 10px 24px rgba(0,0,0,.06);
+      --radius:14px;
 
-    body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f4f6f8;
-  color: #1e1e1e;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* Soft clean-environment background image + light green wash */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background:
-    linear-gradient(rgba(210, 244, 226, 0.72), rgba(244, 251, 246, 0.72)),
-    url("bg-clean.png") center / cover no-repeat;
-  filter: saturate(1.05) brightness(1.02);
-}
-
-/* Optional: add a tiny texture/blur to keep it classy */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
-}
+      /* ✅ Make banner taller by increasing this value a bit */
+      /* Old: 33.333%  -> New (taller): 40% */
+      --hero-aspect: 40%;
+    }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background: #f4f6f8;
-      color: #1e1e1e;
+      background: var(--bg);
+      color: var(--text);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Soft clean-environment background image + light green wash */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(rgba(210, 244, 226, 0.72), rgba(244, 251, 246, 0.72)),
+        url("bg-clean.png") center / cover no-repeat;
+      filter: saturate(1.05) brightness(1.02);
+    }
+
+    /* Optional: subtle blur */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
     }
 
     /* ===== TOP GREEN SECTION (FULL WIDTH) ===== */
     .topbar {
-      background: #024731;
+      background: var(--brand);
       padding: 14px 0 18px;
     }
 
@@ -65,6 +74,7 @@ body::after {
       justify-content: center;
       gap: 8px;
       margin-bottom: 12px;
+      flex-wrap: wrap;
     }
 
     .tabbar a {
@@ -75,12 +85,10 @@ body::after {
       font-weight: 800;
       font-size: 14px;
       letter-spacing: 0.2px;
-
       color: #ffffff;
       border: 1px solid rgba(255,255,255,0.55);
       background: rgba(255,255,255,0.10);
       backdrop-filter: blur(6px);
-
       transition: transform 150ms ease, background 150ms ease;
     }
 
@@ -91,78 +99,130 @@ body::after {
 
     .tabbar a.active {
       background: #ffffff;
-      color: #024731;
+      color: var(--brand);
       border-color: #ffffff;
     }
 
-    /* ===== HERO ===== */
+    /* ===== HERO =====
+       ✅ Remove left/right green bars by removing green background-color
+       ✅ Keep full image visible (contain)
+       ✅ Make hero taller using --hero-aspect
+    */
     header.hero {
       position: relative;
       overflow: hidden;
-      min-height: clamp(260px, 42vh, 560px);
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       text-align: center;
-
-      background: url("vallether_banner1.png") center top / contain no-repeat;
-      background-color: #024731;
-
       width: 100%;
       border-radius: 16px;
+
+      background: url("vallether_banner1.png") center top / contain no-repeat;
+      background-color: transparent; /* ✅ removes green side background */
     }
 
+    /* Ratio box to control hero height (taller now) */
+    header.hero::after{
+      content:"";
+      display:block;
+      width:100%;
+      padding-top: var(--hero-aspect);
+    }
+
+    /* Dark overlay for readability */
     header.hero::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.20);
+      background: linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.18));
       z-index: 0;
     }
 
     .hero-content {
-      position: relative;
+      position: absolute;
+      inset: 0;
       z-index: 1;
-      padding: 34px 18px;
-      max-width: 900px;
+      display: grid;
+      place-items: center;
+      padding: 34px 18px 22px;
 
       opacity: 0;
       transform: translateY(14px);
       animation: fadeInUp 900ms ease-out forwards;
     }
 
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
+    .hero-content-inner{
+      max-width: 980px;
+      width: 100%;
     }
+
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     .hero h1 {
       margin: 0 0 10px;
-      font-size: clamp(28px, 4.2vw, 52px);
-      line-height: 1.1;
+      font-size: clamp(30px, 4.4vw, 56px);
+      line-height: 1.05;
       letter-spacing: 0.3px;
       text-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
 
     .hero h3 {
-      margin: 0;
+      margin: 0 auto 16px;
       font-size: clamp(14px, 2vw, 20px);
-      opacity: 0.95;
+      opacity: 0.96;
       text-shadow: 0 2px 8px rgba(0,0,0,0.6);
       font-weight: 600;
+      max-width: 760px;
     }
 
-    /* Wave */
+    .hero-cta { display:none; }
+
+    .trust-line{
+      display:flex;
+      justify-content:center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 0 auto;
+      padding: 10px 12px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      max-width: 820px;
+    }
+
+    .trust-item{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      font-size: 13px;
+      color:#fff;
+      white-space: nowrap;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+    }
+
+    .trust-dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.16);
+      flex: 0 0 8px;
+    }
+
     .hero-wave {
       position: absolute;
       left: 0; right: 0; bottom: -1px;
       width: 100%;
-      height: 80px;
+      height: 92px;
       z-index: 2;
       pointer-events: none;
     }
 
-    /* Logo */
     .hero-logo {
       position: absolute;
       top: 14px;
@@ -174,43 +234,78 @@ body::after {
 
     @media (max-width: 600px) {
       .hero-logo { height: 44px; top: 12px; left: 12px; }
+      .trust-item { font-size: 12.5px; }
     }
 
-    /* ===== PAGE CONTENT ===== */
+    /* ===== LAYOUT ===== */
     section {
-      padding: 40px 20px;
-      max-width: 980px;
+      padding: 46px 20px;
+      max-width: 1050px;
       margin: auto;
     }
 
-    .section-narrow {
-      max-width: 700px;
-      margin: auto;
-    }
+    .section-narrow { max-width: 760px; margin: auto; }
 
-    /* ===== SLOGANS / VALUE PROPS ===== */
-    .value-props {
-      margin-top: 26px;
-    }
-
-    .value-props h2 {
-      margin: 0 0 14px;
-      font-size: 22px;
+    .section-title{
+      margin: 0 0 12px;
+      font-size: 28px;
+      letter-spacing: .2px;
       color: #1f2a24;
-      letter-spacing: 0.2px;
+      text-align:center;
     }
 
-    .vp-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+    .section-subtitle{
+      margin: 0 auto 26px;
+      max-width: 820px;
+      color: var(--muted);
+      text-align:center;
+      font-size: 15px;
+      line-height: 1.45;
     }
 
+    .pill-row{
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .pill{
+      background: rgba(2,71,49,0.10);
+      border: 1px solid rgba(2,71,49,0.12);
+      color: var(--brand);
+      font-weight: 800;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      letter-spacing: .2px;
+    }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+    @media (max-width: 980px) { .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 680px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } section { padding: 38px 18px; } }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .card h3{ margin: 0 0 8px; color: var(--brand); font-size: 16px; letter-spacing: .2px; }
+    .card p{ margin: 0; color: #333; font-size: 14px; line-height: 1.45; }
+
+    .value-props { padding-top: 18px; }
+    .vp-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
     .vp-card {
       background: #fff;
       border-radius: 14px;
       border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+      box-shadow: var(--shadow);
       padding: 16px 16px 14px;
       display: flex;
       gap: 12px;
@@ -218,8 +313,7 @@ body::after {
     }
 
     .vp-icon {
-      width: 42px;
-      height: 42px;
+      width: 42px; height: 42px;
       border-radius: 12px;
       background: rgba(2,71,49,0.08);
       display: grid;
@@ -228,282 +322,585 @@ body::after {
     }
 
     .vp-icon svg {
-      width: 22px;
-      height: 22px;
+      width: 22px; height: 22px;
       display: block;
       fill: none;
-      stroke: #024731;
+      stroke: var(--brand);
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    .vp-title {
-      margin: 0;
-      font-size: 14px;
+    .vp-title { margin: 0; font-size: 12.5px; font-weight: 900; letter-spacing: 0.35px; color: var(--brand); text-transform: uppercase; }
+    .vp-quote { margin: 6px 0 6px; font-size: 15px; font-weight: 800; color: #1d1d1d; }
+    .vp-desc { margin: 0; font-size: 13px; color: #4b4b4b; line-height: 1.35; }
+
+    @media (max-width: 980px) { .vp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 620px) { .vp-grid { grid-template-columns: 1fr; } }
+
+    .steps { counter-reset: step; }
+    .step { display:flex; gap: 14px; align-items:flex-start; padding: 18px; }
+    .step-badge{
+      width: 38px; height: 38px; border-radius: 12px;
+      background: rgba(2,71,49,0.10);
+      border: 1px solid rgba(2,71,49,0.14);
+      display:grid; place-items:center;
+      color: var(--brand);
       font-weight: 900;
-      letter-spacing: 0.3px;
-      color: #024731;
-      text-transform: uppercase;
+      flex: 0 0 38px;
     }
 
-    .vp-quote {
-      margin: 6px 0 6px;
-      font-size: 15px;
-      font-weight: 800;
-      color: #1d1d1d;
-    }
+    .price { display:flex; align-items: baseline; gap: 8px; margin: 10px 0 12px; }
+    .price .amount{ font-size: 26px; font-weight: 900; color: #1d1d1d; }
+    .price .hint{ color: var(--muted); font-size: 13px; font-weight: 700; }
+    .ul { margin: 0; padding-left: 18px; color: #333; font-size: 14px; line-height: 1.55; }
+    .ul li { margin: 6px 0; }
 
-    .vp-desc {
-      margin: 0;
-      font-size: 13px;
-      color: #4b4b4b;
-      line-height: 1.35;
-    }
+    .quote { font-size: 14px; color:#222; line-height: 1.55; }
+    .quote .by { margin-top: 10px; color: var(--muted); font-weight: 800; font-size: 13px; }
 
-    @media (max-width: 980px) {
-      .vp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    details {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 14px 16px;
     }
-    @media (max-width: 620px) {
-      .vp-grid { grid-template-columns: 1fr; }
+    details + details { margin-top: 12px; }
+    summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--brand);
+      outline: none;
     }
+    details p { margin: 10px 0 0; color:#333; font-size: 14px; }
 
-    /* ===== FORM ===== */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .form-grid{ display:grid; grid-template-columns: 1.1fr .9fr; gap: 16px; align-items: start; }
+    @media (max-width: 860px){ .form-grid{ grid-template-columns: 1fr; } }
 
-    input, textarea {
+    form { display: flex; flex-direction: column; gap: 12px; }
+
+    label{ font-size: 13px; font-weight: 800; color: #26332c; margin-bottom: -6px; }
+    input, textarea, select {
       padding: 12px;
       border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+      border: 1px solid #cfd6dc;
+      font-size: 15px;
+      background: #fff;
+      outline: none;
     }
+    textarea{ min-height: 120px; resize: vertical; }
 
-    button {
-      background: #5A2A5D;
+    .btn-submit {
+      background: var(--accent);
       color: white;
       padding: 14px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
+      font-weight: 900;
+      letter-spacing: .2px;
     }
+    .btn-submit:hover { filter: brightness(.95); }
 
-    button:hover { background: #4a214b; }
+    #status { font-weight: bold; margin: 0; }
 
-    #status { font-weight: bold; }
+    .contact-box{
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color:#fff;
+      border-radius: var(--radius);
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.20);
+      box-shadow: var(--shadow);
+    }
+    .contact-box h3 { margin: 0 0 10px; }
+    .contact-box p { margin: 8px 0; opacity: .96; }
+    .mini { font-size: 13px; opacity: .92; }
 
     footer {
-      background:#5A2A5D;
-      color:white;
-      text-align:center;
-      padding:20px 10px;
-      margin-top:60px;
-      font-size:14px;
-      letter-spacing:0.5px;
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 22px 10px;
+      margin-top: 60px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
     }
+
+    .footer-links{
+      display:flex;
+      justify-content:center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 10px 0 0;
+      font-size: 13px;
+      opacity: .95;
+    }
+    .footer-links a{ color:#fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.35); }
+    .footer-links a:hover{ border-bottom-color:#fff; }
+
+    .anchor { scroll-margin-top: 120px; }
   </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  <div class="topbar-inner">
+  <div class="topbar">
+    <div class="topbar-inner">
 
-    <nav class="tabbar" aria-label="Primary">
-      <a class="active" href="#request">Request Service</a>
-      <a href="contact.html#contactForm">Contact Us</a>
-    </nav>
+      <nav class="tabbar" aria-label="Primary">
+        <a class="active" href="#request">Request Service</a>
+        <a href="#how">How It Works</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
 
-    <header class="hero" id="top">
-      <img src="ValletHer_Logo2.png" alt="Vallet Her Logo" class="hero-logo">
+      <header class="hero" id="top">
+        <img src="ValletHer_Logo2.png" alt="Vallet Her Logo" class="hero-logo" />
 
-      <div class="hero-content">
-        <h1>Vallet Her</h1>
-        <h3>Committed to Clean Communities and Environmental Stewardship</h3>
-      </div>
+        <div class="hero-content">
+          <div class="hero-content-inner">
+            <h1>Vallet Her</h1>
+            <h3>Reliable, women-led valet trash pickup designed to keep communities clean, consistent, and cared for.</h3>
 
-      <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-        <path fill="#f4f6f8"
-          d="M0,64 C240,110 480,110 720,64 C960,18 1200,18 1440,64 L1440,120 L0,120 Z"></path>
-      </svg>
-    </header>
+            <div class="trust-line" aria-label="Trust signals">
+              <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>On-time pickup</span>
+              <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>Clean handling</span>
+              <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>Resident-friendly</span>
+              <span class="trust-item"><span class="trust-dot" aria-hidden="true"></span>Property-manager ready</span>
+            </div>
+          </div>
+        </div>
 
+        <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+          <path fill="#f4f6f8"
+            d="M0,64 C240,110 480,110 720,64 C960,18 1200,18 1440,64 L1440,120 L0,120 Z"></path>
+        </svg>
+      </header>
+
+    </div>
   </div>
-</div>
 
-<section class="value-props" aria-label="Vallet Her value propositions">
+  <!-- VALUE PROPS (your slogans) -->
+  <section class="value-props" aria-label="Vallet Her value propositions">
+    <h2 class="section-title">A Higher Standard of Valet Trash</h2>
+    <p class="section-subtitle">Professional service you can count on — built for residents, property managers, and clean communities.</p>
 
-  <div class="vp-grid">
-
-    <!-- Clean & Corporate -->
-    <div class="vp-card">
-      <div class="vp-icon" aria-hidden="true">
-        <!-- Building icon -->
-        <svg viewBox="0 0 24 24">
-          <path d="M3 21h18"></path>
-          <path d="M6 21V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v14"></path>
-          <path d="M9 9h1"></path><path d="M9 12h1"></path><path d="M9 15h1"></path>
-          <path d="M14 9h1"></path><path d="M14 12h1"></path><path d="M14 15h1"></path>
-        </svg>
+    <div class="vp-grid">
+      <!-- Clean & Corporate -->
+      <div class="vp-card">
+        <div class="vp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 21h18"></path>
+            <path d="M6 21V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v14"></path>
+            <path d="M9 9h1"></path><path d="M9 12h1"></path><path d="M9 15h1"></path>
+            <path d="M14 9h1"></path><path d="M14 12h1"></path><path d="M14 15h1"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="vp-title">Clean & Corporate</p>
+          <p class="vp-quote">“ValletHer: Elevating Clean Communities.”</p>
+          <p class="vp-desc">A women-led curbside service committed to reliability, sustainability, and care.</p>
+        </div>
       </div>
-      <div>
-        <p class="vp-title">Clean & Corporate</p>
-        <p class="vp-quote">“ValletHer: Elevating Clean Communities.”</p>
-        <p class="vp-desc">A women-led curbside service committed to reliability, sustainability, and care.</p>
+
+      <!-- Eco-Focused -->
+      <div class="vp-card">
+        <div class="vp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 3s-6 0-10 4-4 10-4 10 6 0 10-4 4-10 4-10Z"></path>
+            <path d="M7 17c2-4 6-8 10-10"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="vp-title">Eco-Focused</p>
+          <p class="vp-quote">“Sustainability Starts at Your Curb.”</p>
+          <p class="vp-desc">Professional doorstep waste collection with an eco-conscious approach.</p>
+        </div>
+      </div>
+
+      <!-- Service Excellence -->
+      <div class="vp-card">
+        <div class="vp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2 20 6v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z"></path>
+            <path d="m9 12 2 2 4-5"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="vp-title">Service Excellence</p>
+          <p class="vp-quote">“Where Service Meets Stewardship.”</p>
+          <p class="vp-desc">Dependable, responsible, and designed to keep your community clean.</p>
+        </div>
+      </div>
+
+      <!-- Women-Led Strength -->
+      <div class="vp-card">
+        <div class="vp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2l1.5 5L18 9l-4.5 2L12 16l-1.5-5L6 9l4.5-2L12 2Z"></path>
+            <path d="M5 22c3-3 11-3 14 0"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="vp-title">Women-Led Strength</p>
+          <p class="vp-quote">“Led by Her. Powered by Purpose.”</p>
+          <p class="vp-desc">A modern approach to curbside waste care—professional, efficient, and community-driven.</p>
+        </div>
+      </div>
+
+      <!-- Premium & Minimal -->
+      <div class="vp-card">
+        <div class="vp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 8l4 4 5-6 5 6 4-4v10H3V8Z"></path>
+            <path d="M3 18h18"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="vp-title">Premium & Minimal</p>
+          <p class="vp-quote">“Reliable. Responsible. Remarkably Her.”</p>
+          <p class="vp-desc">A higher standard of residential waste service.</p>
+        </div>
+      </div>
+
+      <!-- Property Manager Ready -->
+      <div class="vp-card">
+        <div class="vp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 21H4"></path>
+            <path d="M7 21V9l5-4 5 4v12"></path>
+            <path d="M9 13h6"></path>
+            <path d="M10 17h4"></path>
+          </svg>
+        </div>
+        <div>
+          <p class="vp-title">Property-Manager Ready</p>
+          <p class="vp-quote">“Built for Residents & Communities.”</p>
+          <p class="vp-desc">Clear schedules, clean operations, and communication that residents trust.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="anchor" aria-label="How Vallet Her works">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-subtitle">Simple, consistent, and designed to keep shared spaces clean.</p>
+
+    <div class="grid-2 steps">
+      <div class="card step">
+        <div class="step-badge">1</div>
+        <div>
+          <h3>Residents Place Bagged Trash</h3>
+          <p>Trash is placed in approved containers at the doorstep during the pickup window.</p>
+        </div>
+      </div>
+
+      <div class="card step">
+        <div class="step-badge">2</div>
+        <div>
+          <h3>Scheduled Pickup Nights</h3>
+          <p>Our team collects door-to-door on agreed service days with consistent timing.</p>
+        </div>
+      </div>
+
+      <div class="card step">
+        <div class="step-badge">3</div>
+        <div>
+          <h3>Clean & Discreet Removal</h3>
+          <p>Waste is securely transported to community dumpsters with clean handling practices.</p>
+        </div>
+      </div>
+
+      <div class="card step">
+        <div class="step-badge">4</div>
+        <div>
+          <h3>Clean Community Experience</h3>
+          <p>Fewer overflow issues, cleaner hallways, and happier residents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / WHO WE SERVE -->
+  <section id="services" class="anchor" aria-label="Services and who we serve">
+    <h2 class="section-title">Services</h2>
+    <p class="section-subtitle">Flexible options for apartment communities, HOAs, and residential complexes.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Valet Trash Pickup</h3>
+        <p>Door-to-door collection for residents — professional, consistent, and easy to manage.</p>
+      </div>
+      <div class="card">
+        <h3>Community Onboarding</h3>
+        <p>Clear service schedules, resident guidelines, and communication support for smooth rollout.</p>
+      </div>
+      <div class="card">
+        <h3>Cleanliness Support</h3>
+        <p>Best practices that reduce mess and help maintain a cleaner community environment.</p>
       </div>
     </div>
 
-    <!-- Eco-Focused -->
-    <div class="vp-card">
-      <div class="vp-icon" aria-hidden="true">
-        <!-- Leaf icon -->
-        <svg viewBox="0 0 24 24">
-          <path d="M21 3s-6 0-10 4-4 10-4 10 6 0 10-4 4-10 4-10Z"></path>
-          <path d="M7 17c2-4 6-8 10-10"></path>
-        </svg>
+    <div style="height:18px"></div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Who We Serve</h3>
+        <ul class="ul">
+          <li>Apartment communities</li>
+          <li>Property management companies</li>
+          <li>HOAs and gated communities</li>
+          <li>Multi-family residential complexes</li>
+        </ul>
       </div>
-      <div>
-        <p class="vp-title">Eco-Focused</p>
-        <p class="vp-quote">“Sustainability Starts at Your Curb.”</p>
-        <p class="vp-desc">Professional doorstep waste collection with an eco-conscious approach.</p>
+
+      <div class="card">
+        <h3>Why Choose Vallet Her</h3>
+        <ul class="ul">
+          <li>Reliable pickup windows</li>
+          <li>Resident-friendly communication</li>
+          <li>Professional, respectful service</li>
+          <li>Clean handling & consistent standards</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="anchor" aria-label="Pricing">
+    <h2 class="section-title">Pricing</h2>
+    <p class="section-subtitle">Transparent starting points — final pricing depends on unit count and service frequency.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Starter</h3>
+        <div class="price">
+          <div class="amount">Quote</div>
+          <div class="hint">Best for small communities</div>
+        </div>
+        <ul class="ul">
+          <li>2 pickups per week</li>
+          <li>Standard pickup window</li>
+          <li>Basic resident guidelines</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Standard</h3>
+        <div class="price">
+          <div class="amount">Quote</div>
+          <div class="hint">Most popular</div>
+        </div>
+        <ul class="ul">
+          <li>3–5 pickups per week</li>
+          <li>Community onboarding support</li>
+          <li>Service communications</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Premium</h3>
+        <div class="price">
+          <div class="amount">Quote</div>
+          <div class="hint">Highest consistency</div>
+        </div>
+        <ul class="ul">
+          <li>5+ pickups per week</li>
+          <li>Priority support</li>
+          <li>Custom service plan</li>
+        </ul>
       </div>
     </div>
 
-    <!-- Service Excellence -->
-    <div class="vp-card">
-      <div class="vp-icon" aria-hidden="true">
-        <!-- Shield/check icon -->
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2 20 6v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z"></path>
-          <path d="m9 12 2 2 4-5"></path>
-        </svg>
-      </div>
-      <div>
-        <p class="vp-title">Service Excellence</p>
-        <p class="vp-quote">“Where Service Meets Stewardship.”</p>
-        <p class="vp-desc">Dependable, responsible, and designed to keep your community clean.</p>
-      </div>
-    </div>
+    <p class="section-subtitle" style="margin-top:18px;">
+      Want an exact quote? Submit the request form below and include unit count and preferred pickup days.
+    </p>
+  </section>
 
-    <!-- Women-Led Strength -->
-    <div class="vp-card">
-      <div class="vp-icon" aria-hidden="true">
-        <!-- Spark / leadership icon -->
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2l1.5 5L18 9l-4.5 2L12 16l-1.5-5L6 9l4.5-2L12 2Z"></path>
-          <path d="M5 22c3-3 11-3 14 0"></path>
-        </svg>
+  <!-- TESTIMONIALS -->
+  <section aria-label="Testimonials">
+    <h2 class="section-title">What Communities Say</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="quote">“Professional and consistent. Our residents noticed the difference within the first week.”</div>
+        <div class="quote by">— Property Manager</div>
       </div>
-      <div>
-        <p class="vp-title">Women-Led Strength</p>
-        <p class="vp-quote">“Led by Her. Powered by Purpose.”</p>
-        <p class="vp-desc">A modern approach to curbside waste care—professional, efficient, and community-driven.</p>
+      <div class="card">
+        <div class="quote">“The pickup process is clear, and communication is excellent. Clean hallways, happier residents.”</div>
+        <div class="quote by">— Community Operations</div>
+      </div>
+      <div class="card">
+        <div class="quote">“Reliable service with a strong focus on cleanliness. Easy to recommend.”</div>
+        <div class="quote by">— HOA Representative</div>
       </div>
     </div>
+  </section>
 
-    <!-- Premium & Minimal -->
-    <div class="vp-card">
-      <div class="vp-icon" aria-hidden="true">
-        <!-- Crown icon -->
-        <svg viewBox="0 0 24 24">
-          <path d="M3 8l4 4 5-6 5 6 4-4v10H3V8Z"></path>
-          <path d="M3 18h18"></path>
-        </svg>
-      </div>
-      <div>
-        <p class="vp-title">Premium & Minimal</p>
-        <p class="vp-quote">“Reliable. Responsible. Remarkably Her.”</p>
-        <p class="vp-desc">A higher standard of residential waste service.</p>
-      </div>
+  <!-- FAQ -->
+  <section id="faq" class="anchor" aria-label="Frequently asked questions">
+    <h2 class="section-title">FAQ</h2>
+
+    <div class="section-narrow">
+      <details>
+        <summary>What nights do you collect trash?</summary>
+        <p>Pickup days are set per community agreement. We communicate schedules clearly to residents and management.</p>
+      </details>
+
+      <details>
+        <summary>Do residents need special containers?</summary>
+        <p>Yes — we recommend approved containers to keep areas clean and ensure safe, consistent pickups.</p>
+      </details>
+
+      <details>
+        <summary>What happens during holidays or weather events?</summary>
+        <p>We communicate adjusted schedules in advance when needed and provide clear updates to avoid confusion.</p>
+      </details>
+
+      <details>
+        <summary>Do you support recycling?</summary>
+        <p>We can align with your community’s recycling program and encourage resident participation where available.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- REQUEST SERVICE / CONTACT -->
+  <section id="request" class="anchor" aria-label="Request service">
+    <div class="section-narrow">
+      <h2 class="section-title">Request Service</h2>
+      <p class="section-subtitle">Tell us a bit about your community and we’ll respond with next steps and pricing.</p>
     </div>
 
-  </div>
-</section>
+    <div class="form-grid">
 
-<section id="request">
-  <div class="section-narrow">
-    <h2>Request Service</h2>
+      <div class="card">
+        <h3 style="margin:0 0 10px;color:var(--brand);">Request Service / Get a Quote</h3>
 
-    <form id="contactForm">
-      <input name="full_name" placeholder="Full Name" required />
-      <input name="email" placeholder="Email" required />
-      <input name="phone" placeholder="Phone (optional)" />
-      <input name="address" placeholder="Service Address" />
-      <textarea name="message" placeholder="How can we help?" required></textarea>
+        <form id="contactForm">
+          <label for="full_name">Full Name</label>
+          <input id="full_name" name="full_name" placeholder="Full Name" required />
 
-      <div style="position:absolute; left:-9999px;">
-        <input name="website" />
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="Email" required />
+
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" name="phone" placeholder="Phone (optional)" />
+
+          <label for="service_type">Service Type</label>
+          <select id="service_type" name="service_type">
+            <option>Apartment Community</option>
+            <option>HOA / Gated Community</option>
+            <option>Residential / Home</option>
+            <option>Other</option>
+          </select>
+
+          <label for="unit_count">Estimated Unit Count (optional)</label>
+          <input id="unit_count" name="unit_count" placeholder="e.g., 120 units" />
+
+          <label for="address">Service Address / Community Name</label>
+          <input id="address" name="address" placeholder="Service Address / Community Name" />
+
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" placeholder="Preferred pickup days, special requests, timeline..." required></textarea>
+
+          <div style="position:absolute; left:-9999px;">
+            <input name="website" />
+          </div>
+
+          <button class="btn-submit" type="submit">Submit Request</button>
+          <p id="status" aria-live="polite"></p>
+        </form>
       </div>
 
-      <button type="submit">Submit Request</button>
-      <p id="status"></p>
-    </form>
-  </div>
-</section>
+      <div class="contact-box">
+        <h3>Contact</h3>
+        <p>📍 Serving: Your City / Area</p>
+        <p>📞 Phone: (555) 123-4567</p>
+        <p>📧 Email: info@vallether.com</p>
+        <p class="mini">For fastest response, include your community name, unit count, and preferred start date.</p>
 
-<script>
-  const ENDPOINT = "https://dumvqkxewqgckboohtft.supabase.co/functions/v1/super-function";
+        <div style="height:12px"></div>
 
-  document.getElementById("contactForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const status = document.getElementById("status");
-    status.textContent = "Sending...";
+        <div class="card" style="background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); color:#fff;">
+          <h3 style="color:#fff;margin:0 0 8px;">Service Areas</h3>
+          <p style="margin:0;opacity:.95;">Atlanta • Gwinnett County • Snellville • Lawrenceville</p>
+        </div>
+      </div>
 
-    const data = Object.fromEntries(new FormData(form).entries());
-    data.source = "website";
+    </div>
+  </section>
 
-    try {
-      const res = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+  <script>
+    const ENDPOINT = "https://dumvqkxewqgckboohtft.supabase.co/functions/v1/super-function";
 
-      const text = await res.text();
-      let json;
-      try { json = JSON.parse(text); } catch { json = { raw: text }; }
+    document.getElementById("contactForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const status = document.getElementById("status");
+      status.textContent = "Sending...";
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}: ${json.error || json.details || json.raw || "Unknown error"}`);
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.source = "website";
+      data.page = "home";
 
-      form.reset();
-      status.textContent = "Thank you! We will contact you soon.";
-    } catch (err) {
-      status.textContent = "Error: " + (err?.message || err);
-      console.error("Form submit error:", err);
-    }
-  });
-</script>
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
 
-<script>
-  // Parallax on the hero image
-  (function () {
-    const hero = document.querySelector("header.hero");
-    if (!hero) return;
+        const text = await res.text();
+        let json;
+        try { json = JSON.parse(text); } catch { json = { raw: text }; }
 
-    let ticking = false;
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY || 0;
-        hero.style.backgroundPosition = `center ${Math.round(y * 0.10)}px`;
-        ticking = false;
-      });
-    }
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${json.error || json.details || json.raw || "Unknown error"}`);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-  })();
-</script>
+        form.reset();
+        status.textContent = "Thank you! We will contact you soon.";
+      } catch (err) {
+        status.textContent = "Error: " + (err?.message || err);
+        console.error("Form submit error:", err);
+      }
+    });
+  </script>
 
-<footer>
-  © 2025 Vallet Her. All rights reserved.
-</footer>
+  <script>
+    // Parallax on the hero image (works with background image)
+    (function () {
+      const hero = document.querySelector("header.hero");
+      if (!hero) return;
+
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY || 0;
+          hero.style.backgroundPosition = `center ${Math.round(y * 0.10)}px`;
+          ticking = false;
+        });
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+
+  <footer>
+    © 2026 Vallet Her. All rights reserved.
+    <div class="footer-links">
+      <a href="#how">How It Works</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#request">Request Service</a>
+    </div>
+  </footer>
 
 </body>
 </html>
