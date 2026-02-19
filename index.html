@@ -18,15 +18,15 @@
       --shadow:0 10px 24px rgba(0,0,0,.06);
       --radius:14px;
 
-      /* ✅ Make banner taller by increasing this value a bit */
-      /* Old: 33.333%  -> New (taller): 40% */
+      /* Hero height ratio */
       --hero-aspect: 40%;
     }
 
     html { scroll-behavior: smooth; }
 
-    body {
-      font-family: Arial, sans-serif;
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      letter-spacing: 0.1px;
       margin: 0;
       background: var(--bg);
       color: var(--text);
@@ -35,7 +35,7 @@
     }
 
     /* Soft clean-environment background image + light green wash */
-    body::before {
+    body::before{
       content: "";
       position: fixed;
       inset: 0;
@@ -47,7 +47,7 @@
     }
 
     /* Optional: subtle blur */
-    body::after {
+    body::after{
       content: "";
       position: fixed;
       inset: 0;
@@ -56,20 +56,19 @@
       -webkit-backdrop-filter: blur(1.5px);
     }
 
-    /* ===== TOP GREEN SECTION (FULL WIDTH) ===== */
-    .topbar {
+    /* ===== TOP GREEN SECTION ===== */
+    .topbar{
       background: var(--brand);
       padding: 14px 0 18px;
     }
 
-    .topbar-inner {
+    .topbar-inner{
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 16px;
     }
 
-    /* Tabs sitting on the green background */
-    .tabbar {
+    .tabbar{
       display: flex;
       justify-content: center;
       gap: 8px;
@@ -77,7 +76,7 @@
       flex-wrap: wrap;
     }
 
-    .tabbar a {
+    .tabbar a{
       display: inline-block;
       padding: 10px 18px;
       border-radius: 999px;
@@ -92,23 +91,19 @@
       transition: transform 150ms ease, background 150ms ease;
     }
 
-    .tabbar a:hover {
+    .tabbar a:hover{
       transform: translateY(-1px);
       background: rgba(255,255,255,0.18);
     }
 
-    .tabbar a.active {
+    .tabbar a.active{
       background: #ffffff;
       color: var(--brand);
       border-color: #ffffff;
     }
 
-    /* ===== HERO =====
-       ✅ Remove left/right green bars by removing green background-color
-       ✅ Keep full image visible (contain)
-       ✅ Make hero taller using --hero-aspect
-    */
-    header.hero {
+    /* ===== HERO ===== */
+    header.hero{
       position: relative;
       overflow: hidden;
       color: white;
@@ -119,10 +114,9 @@
       border-radius: 16px;
 
       background: url("vallether_banner1.png") center top / contain no-repeat;
-      background-color: transparent; /* ✅ removes green side background */
+      background-color: transparent; /* removes green side bars */
     }
 
-    /* Ratio box to control hero height (taller now) */
     header.hero::after{
       content:"";
       display:block;
@@ -130,8 +124,7 @@
       padding-top: var(--hero-aspect);
     }
 
-    /* Dark overlay for readability */
-    header.hero::before {
+    header.hero::before{
       content: "";
       position: absolute;
       inset: 0;
@@ -139,7 +132,7 @@
       z-index: 0;
     }
 
-    .hero-content {
+    .hero-content{
       position: absolute;
       inset: 0;
       z-index: 1;
@@ -152,31 +145,41 @@
       animation: fadeInUp 900ms ease-out forwards;
     }
 
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
     .hero-content-inner{
       max-width: 980px;
       width: 100%;
+
+      /* Premium glass panel */
+      padding: 18px 18px 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-width: 860px;
     }
 
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-    .hero h1 {
+    .hero h1{
       margin: 0 0 10px;
       font-size: clamp(30px, 4.4vw, 56px);
       line-height: 1.05;
       letter-spacing: 0.3px;
       text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      font-weight: 950;
     }
 
-    .hero h3 {
-      margin: 0 auto 16px;
+    .hero h3{
+      margin: 0 auto 14px;
       font-size: clamp(14px, 2vw, 20px);
-      opacity: 0.96;
+      opacity: 0.98;
       text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-      font-weight: 600;
+      font-weight: 650;
       max-width: 760px;
     }
 
-    .hero-cta { display:none; }
+    .hero-cta{ display:none; }
 
     .trust-line{
       display:flex;
@@ -185,8 +188,8 @@
       flex-wrap: wrap;
       margin: 0 auto;
       padding: 10px 12px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.18);
       border-radius: 12px;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -214,7 +217,7 @@
       flex: 0 0 8px;
     }
 
-    .hero-wave {
+    .hero-wave{
       position: absolute;
       left: 0; right: 0; bottom: -1px;
       width: 100%;
@@ -223,7 +226,7 @@
       pointer-events: none;
     }
 
-    .hero-logo {
+    .hero-logo{
       position: absolute;
       top: 14px;
       left: 14px;
@@ -232,63 +235,82 @@
       z-index: 4;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 600px){
       .hero-logo { height: 44px; top: 12px; left: 12px; }
       .trust-item { font-size: 12.5px; }
     }
 
     /* ===== LAYOUT ===== */
-    section {
-      padding: 46px 20px;
-      max-width: 1050px;
+    section{
+      padding: 56px 20px;
+      max-width: 1100px;
       margin: auto;
     }
 
-    .section-narrow { max-width: 760px; margin: auto; }
+    .section-narrow{ max-width: 760px; margin: auto; }
 
     .section-title{
-      margin: 0 0 12px;
-      font-size: 28px;
+      position: relative;
+      display: inline-block;
+      margin: 0 auto 14px;
+      font-size: 30px;
+      font-weight: 900;
       letter-spacing: .2px;
       color: #1f2a24;
       text-align:center;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title::after{
+      content:"";
+      display:block;
+      height: 4px;
+      width: 64px;
+      margin: 10px auto 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
     }
 
     .section-subtitle{
       margin: 0 auto 26px;
-      max-width: 820px;
-      color: var(--muted);
+      max-width: 860px;
+      color: #1f2a24;
       text-align:center;
-      font-size: 15px;
-      line-height: 1.45;
+      font-size: 18px;
+      line-height: 1.65;
+      font-weight: 700;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(0,0,0,0.06);
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
     }
 
-    .pill-row{
-      display:flex;
-      justify-content:center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
+    /* Hover polish */
+    .card, details, .vp-card{
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
     }
 
-    .pill{
-      background: rgba(2,71,49,0.10);
-      border: 1px solid rgba(2,71,49,0.12);
-      color: var(--brand);
-      font-weight: 800;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      letter-spacing: .2px;
+    .card:hover, details:hover, .vp-card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.10);
+      border-color: rgba(0,0,0,.12);
     }
 
-    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    /* ===== GRIDS / CARDS ===== */
+    .grid-3{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .grid-2{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 
-    @media (max-width: 980px) { .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 680px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } section { padding: 38px 18px; } }
+    @media (max-width: 980px){
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px){
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      section { padding: 44px 18px; }
+    }
 
-    .card {
+    .card{
       background: var(--card);
       border-radius: var(--radius);
       border: 1px solid var(--border);
@@ -299,9 +321,14 @@
     .card h3{ margin: 0 0 8px; color: var(--brand); font-size: 16px; letter-spacing: .2px; }
     .card p{ margin: 0; color: #333; font-size: 14px; line-height: 1.45; }
 
-    .value-props { padding-top: 18px; }
-    .vp-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .vp-card {
+    /* ===== VALUE PROPS ===== */
+    .value-props { padding-top: 22px; }
+
+    .vp-grid{ display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+
+    .vp-card{
+      position: relative;
+      overflow: hidden;
       background: #fff;
       border-radius: 14px;
       border: 1px solid rgba(0,0,0,0.06);
@@ -312,7 +339,15 @@
       align-items: flex-start;
     }
 
-    .vp-icon {
+    .vp-card::before{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand), var(--brand2));
+    }
+
+    .vp-icon{
       width: 42px; height: 42px;
       border-radius: 12px;
       background: rgba(2,71,49,0.08);
@@ -321,7 +356,7 @@
       flex: 0 0 42px;
     }
 
-    .vp-icon svg {
+    .vp-icon svg{
       width: 22px; height: 22px;
       display: block;
       fill: none;
@@ -331,13 +366,14 @@
       stroke-linejoin: round;
     }
 
-    .vp-title { margin: 0; font-size: 12.5px; font-weight: 900; letter-spacing: 0.35px; color: var(--brand); text-transform: uppercase; }
-    .vp-quote { margin: 6px 0 6px; font-size: 15px; font-weight: 800; color: #1d1d1d; }
-    .vp-desc { margin: 0; font-size: 13px; color: #4b4b4b; line-height: 1.35; }
+    .vp-title{ margin: 0; font-size: 12.5px; font-weight: 900; letter-spacing: 0.35px; color: var(--brand); text-transform: uppercase; }
+    .vp-quote{ margin: 6px 0 6px; font-size: 15px; font-weight: 800; color: #1d1d1d; }
+    .vp-desc{ margin: 0; font-size: 13px; color: #4b4b4b; line-height: 1.35; }
 
-    @media (max-width: 980px) { .vp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 620px) { .vp-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 980px){ .vp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 620px){ .vp-grid { grid-template-columns: 1fr; } }
 
+    /* ===== HOW IT WORKS ===== */
     .steps { counter-reset: step; }
     .step { display:flex; gap: 14px; align-items:flex-start; padding: 18px; }
     .step-badge{
@@ -350,16 +386,19 @@
       flex: 0 0 38px;
     }
 
+    /* ===== PRICING ===== */
     .price { display:flex; align-items: baseline; gap: 8px; margin: 10px 0 12px; }
     .price .amount{ font-size: 26px; font-weight: 900; color: #1d1d1d; }
     .price .hint{ color: var(--muted); font-size: 13px; font-weight: 700; }
     .ul { margin: 0; padding-left: 18px; color: #333; font-size: 14px; line-height: 1.55; }
     .ul li { margin: 6px 0; }
 
+    /* ===== TESTIMONIALS ===== */
     .quote { font-size: 14px; color:#222; line-height: 1.55; }
     .quote .by { margin-top: 10px; color: var(--muted); font-weight: 800; font-size: 13px; }
 
-    details {
+    /* ===== FAQ ===== */
+    details{
       background: #fff;
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -367,31 +406,35 @@
       padding: 14px 16px;
     }
     details + details { margin-top: 12px; }
-    summary {
+    summary{
       cursor: pointer;
       font-weight: 900;
       color: var(--brand);
       outline: none;
     }
-    details p { margin: 10px 0 0; color:#333; font-size: 14px; }
+    details p{ margin: 10px 0 0; color:#333; font-size: 14px; }
 
-    .form-grid{ display:grid; grid-template-columns: 1.1fr .9fr; gap: 16px; align-items: start; }
-    @media (max-width: 860px){ .form-grid{ grid-template-columns: 1fr; } }
-
-    form { display: flex; flex-direction: column; gap: 12px; }
+    /* ===== FORM ===== */
+    form{ display: flex; flex-direction: column; gap: 12px; }
 
     label{ font-size: 13px; font-weight: 800; color: #26332c; margin-bottom: -6px; }
-    input, textarea, select {
+    input, textarea, select{
       padding: 12px;
       border-radius: 10px;
       border: 1px solid #cfd6dc;
       font-size: 15px;
       background: #fff;
       outline: none;
+      transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
     }
     textarea{ min-height: 120px; resize: vertical; }
 
-    .btn-submit {
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(2,71,49,0.55);
+      box-shadow: 0 0 0 4px rgba(2,71,49,0.12);
+    }
+
+    .btn-submit{
       background: var(--accent);
       color: white;
       padding: 14px;
@@ -401,11 +444,17 @@
       cursor: pointer;
       font-weight: 900;
       letter-spacing: .2px;
+      box-shadow: 0 14px 28px rgba(90,42,93,0.22);
+      transition: transform 160ms ease, filter 160ms ease;
     }
-    .btn-submit:hover { filter: brightness(.95); }
+    .btn-submit:hover{
+      filter: brightness(.95);
+      transform: translateY(-1px);
+    }
 
     #status { font-weight: bold; margin: 0; }
 
+    /* Contact box at bottom */
     .contact-box{
       background: linear-gradient(135deg, var(--brand), var(--brand2));
       color:#fff;
@@ -418,7 +467,8 @@
     .contact-box p { margin: 8px 0; opacity: .96; }
     .mini { font-size: 13px; opacity: .92; }
 
-    footer {
+    /* Footer */
+    footer{
       background: var(--accent);
       color: white;
       text-align: center;
@@ -437,18 +487,30 @@
       font-size: 13px;
       opacity: .95;
     }
-    .footer-links a{ color:#fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.35); }
+    .footer-links a{
+      color:#fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.35);
+    }
     .footer-links a:hover{ border-bottom-color:#fff; }
 
     .anchor { scroll-margin-top: 120px; }
+
+    .cta-title{
+  display:block;
+  left:auto;
+  transform:none;
+  text-align:center;
+  margin: 0 0 10px;
+}
+
   </style>
 </head>
-
+<!--*********************** body ********************-->
 <body>
 
   <div class="topbar">
     <div class="topbar-inner">
-
       <nav class="tabbar" aria-label="Primary">
         <a class="active" href="#request">Request Service</a>
         <a href="#how">How It Works</a>
@@ -479,17 +541,15 @@
             d="M0,64 C240,110 480,110 720,64 C960,18 1200,18 1440,64 L1440,120 L0,120 Z"></path>
         </svg>
       </header>
-
     </div>
   </div>
 
-  <!-- VALUE PROPS (your slogans) -->
+  <!-- VALUE PROPS -->
   <section class="value-props" aria-label="Vallet Her value propositions">
     <h2 class="section-title">A Higher Standard of Valet Trash</h2>
     <p class="section-subtitle">Professional service you can count on — built for residents, property managers, and clean communities.</p>
 
     <div class="vp-grid">
-      <!-- Clean & Corporate -->
       <div class="vp-card">
         <div class="vp-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
@@ -506,7 +566,6 @@
         </div>
       </div>
 
-      <!-- Eco-Focused -->
       <div class="vp-card">
         <div class="vp-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
@@ -521,7 +580,6 @@
         </div>
       </div>
 
-      <!-- Service Excellence -->
       <div class="vp-card">
         <div class="vp-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
@@ -536,7 +594,6 @@
         </div>
       </div>
 
-      <!-- Women-Led Strength -->
       <div class="vp-card">
         <div class="vp-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
@@ -551,7 +608,6 @@
         </div>
       </div>
 
-      <!-- Premium & Minimal -->
       <div class="vp-card">
         <div class="vp-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
@@ -566,7 +622,6 @@
         </div>
       </div>
 
-      <!-- Property Manager Ready -->
       <div class="vp-card">
         <div class="vp-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
@@ -625,7 +680,7 @@
     </div>
   </section>
 
-  <!-- SERVICES / WHO WE SERVE -->
+  <!-- SERVICES -->
   <section id="services" class="anchor" aria-label="Services and who we serve">
     <h2 class="section-title">Services</h2>
     <p class="section-subtitle">Flexible options for apartment communities, HOAs, and residential complexes.</p>
@@ -768,69 +823,93 @@
     </div>
   </section>
 
-  <!-- REQUEST SERVICE / CONTACT -->
+  <!-- REQUEST FORM -->
   <section id="request" class="anchor" aria-label="Request service">
-    <div class="section-narrow">
-      <h2 class="section-title">Request Service</h2>
-      <p class="section-subtitle">Tell us a bit about your community and we’ll respond with next steps and pricing.</p>
+    <h2 class="section-title">Request Service / Get a Quote</h2>
+    <p class="section-subtitle">Tell us about your community and we’ll respond with next steps and pricing.</p>
+
+    <div class="card" style="max-width: 980px; margin: 0 auto;">
+      <h3 style="margin:0 0 10px;color:var(--brand);">Request Service / Get a Quote</h3>
+
+      <form id="contactForm">
+        <label for="full_name">Full Name</label>
+        <input id="full_name" name="full_name" placeholder="Full Name" required />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Email" required />
+
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="phone" placeholder="Phone (optional)" />
+
+        <label for="service_type">Service Type</label>
+        <select id="service_type" name="service_type">
+          <option>Apartment Community</option>
+          <option>HOA / Gated Community</option>
+          <option>Residential / Home</option>
+          <option>Other</option>
+        </select>
+
+        <label for="unit_count">Estimated Unit Count (optional)</label>
+        <input id="unit_count" name="unit_count" placeholder="e.g., 120 units" />
+
+        <label for="address">Service Address / Community Name</label>
+        <input id="address" name="address" placeholder="Service Address / Community Name" />
+
+        <label for="message">How can we help?</label>
+        <textarea id="message" name="message" placeholder="Preferred pickup days, special requests, timeline..." required></textarea>
+
+        <div style="position:absolute; left:-9999px;">
+          <input name="website" />
+        </div>
+
+        <button class="btn-submit" type="submit">Submit Request</button>
+        <p id="status" aria-live="polite"></p>
+      </form>
     </div>
+  </section>
 
-    <div class="form-grid">
+  <!-- CTA -->
+  <section aria-label="Call to action">
+    <div class="card" style="text-align:center; padding:28px; max-width: 1100px; margin: 0 auto;">
+      <h2 class="section-title cta-title">Ready to Keep Your Community Cleaner?</h2>
+      <p class="section-subtitle" style="margin-bottom:18px;">
+        Get a fast quote for your property—simple onboarding, consistent pickup, and clean handling.
+      </p>
+      <a href="#request" style="
+        display:inline-block;
+        background: var(--brand);
+        color:#fff;
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-weight: 900;
+        text-decoration:none;
+        box-shadow: 0 14px 28px rgba(2,71,49,0.18);
+      ">Request a Quote</a>
+    </div>
+  </section>
 
-      <div class="card">
-        <h3 style="margin:0 0 10px;color:var(--brand);">Request Service / Get a Quote</h3>
-
-        <form id="contactForm">
-          <label for="full_name">Full Name</label>
-          <input id="full_name" name="full_name" placeholder="Full Name" required />
-
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="Email" required />
-
-          <label for="phone">Phone (optional)</label>
-          <input id="phone" name="phone" placeholder="Phone (optional)" />
-
-          <label for="service_type">Service Type</label>
-          <select id="service_type" name="service_type">
-            <option>Apartment Community</option>
-            <option>HOA / Gated Community</option>
-            <option>Residential / Home</option>
-            <option>Other</option>
-          </select>
-
-          <label for="unit_count">Estimated Unit Count (optional)</label>
-          <input id="unit_count" name="unit_count" placeholder="e.g., 120 units" />
-
-          <label for="address">Service Address / Community Name</label>
-          <input id="address" name="address" placeholder="Service Address / Community Name" />
-
-          <label for="message">How can we help?</label>
-          <textarea id="message" name="message" placeholder="Preferred pickup days, special requests, timeline..." required></textarea>
-
-          <div style="position:absolute; left:-9999px;">
-            <input name="website" />
-          </div>
-
-          <button class="btn-submit" type="submit">Submit Request</button>
-          <p id="status" aria-live="polite"></p>
-        </form>
-      </div>
-
+  <!-- CONTACT SECTION -->
+  <section aria-label="Contact Information">
+    <div class="section-narrow">
       <div class="contact-box">
         <h3>Contact</h3>
         <p>📍 Serving: Your City / Area</p>
         <p>📞 Phone: (555) 123-4567</p>
         <p>📧 Email: info@vallether.com</p>
-        <p class="mini">For fastest response, include your community name, unit count, and preferred start date.</p>
+        <p class="mini">
+          For fastest response, include your community name, unit count,
+          and preferred start date.
+        </p>
 
         <div style="height:12px"></div>
 
         <div class="card" style="background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); color:#fff;">
           <h3 style="color:#fff;margin:0 0 8px;">Service Areas</h3>
-          <p style="margin:0;opacity:.95;">Atlanta • Gwinnett County • Snellville • Lawrenceville</p>
+          <p style="color:#fff;margin:0;opacity:.95;">
+            • Gwinnett • Dekalb • Rockdale
+          </p>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -870,7 +949,6 @@
   </script>
 
   <script>
-    // Parallax on the hero image (works with background image)
     (function () {
       const hero = document.querySelector("header.hero");
       if (!hero) return;
