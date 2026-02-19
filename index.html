@@ -544,6 +544,59 @@
   visibility: visible;
 }
 
+/* ===== MOBILE: Make trust-line bullets visible ===== */
+@media (max-width: 600px){
+
+  /* Give the hero inner panel a bit more room */
+  .hero-content{
+    padding: 26px 14px 26px;
+  }
+
+  /* Stronger glass panel contrast */
+  .hero-content-inner{
+    background: rgba(0,0,0,0.38);
+    border-color: rgba(255,255,255,0.26);
+  }
+
+  /* Make the trust line easier to read and better spaced */
+  .trust-line{
+    padding: 12px 12px;
+    gap: 10px;
+    background: rgba(0,0,0,0.42);
+    border-color: rgba(255,255,255,0.22);
+  }
+
+  /* Turn into a neat grid so all 4 show clearly */
+  .trust-line{
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* 2 columns on mobile */
+    justify-items: start;
+    max-width: 100%;
+  }
+
+  /* Improve readability */
+  .trust-item{
+    font-size: 13px;
+    font-weight: 900;
+    white-space: normal;      /* allow wrapping if needed */
+    line-height: 1.25;
+  }
+
+  /* Slightly bigger dot for visibility */
+  .trust-dot{
+    width: 9px;
+    height: 9px;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.14);
+  }
+}
+
+/* Extra small screens: stack into 1 column */
+@media (max-width: 360px){
+  .trust-line{
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
 </head>
 <!--*********************** body ********************-->
