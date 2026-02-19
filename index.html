@@ -538,6 +538,21 @@
   opacity: 1;
   visibility: visible;
 }
+/* ===== Mobile Fix for Hero Text ===== */
+@media (max-width: 768px) {
+
+  /* Make h3 black on mobile */
+  .hero h3 {
+    color: #000000 !important;
+    text-shadow: none;
+  }
+
+  /* Give extra bottom spacing so wave doesn't overlap text */
+  .hero-content {
+    padding-bottom: 80px;
+  }
+
+}
 
   </style>
 </head>
